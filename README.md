@@ -11,7 +11,7 @@ A full-stack, single-page interior design web application: a public portfolio si
 > - **Photos are from [Unsplash](https://unsplash.com)**, used under the [Unsplash License](https://unsplash.com/license) and loaded from the Unsplash CDN by photo ID (see `PROJECT_PHOTOS` in [`backend/src/seed-data.js`](backend/src/seed-data.js)). They illustrate the fictional projects and are not photos of ASIDES.in work.
 > - The footer carries a one-line note that this is a portfolio rebuild with fictional projects.
 
-![Home page](docs/screenshots/01-home.png)
+![Home page](docs/screenshots/home.jpg)
 
 ## Objectives
 
@@ -163,12 +163,14 @@ Admin routes require an `Authorization: Bearer <token>` header.
 
 ## Screenshots
 
+Captured from the live site on GitHub Pages (desktop, 1440 px wide).
+
 | | |
 |---|---|
-| ![Projects filtered](docs/screenshots/02-projects-filtered.png) Projects filtered by category | ![Project detail](docs/screenshots/03-project-detail.png) Project detail |
-| ![Contact validation](docs/screenshots/04-contact-validation.png) Enquiry form validation | ![Mobile menu](docs/screenshots/05-mobile-menu.png) Mobile navigation |
-| ![Admin dashboard](docs/screenshots/06-admin-dashboard.png) Admin dashboard | ![Admin project form](docs/screenshots/07-admin-project-form.png) Admin project editor |
-| ![Admin categories](docs/screenshots/09-admin-categories.png) Category management | ![Admin enquiries](docs/screenshots/10-admin-enquiries.png) Enquiry inbox |
+| ![Spaces by category](docs/screenshots/spaces.jpg) Spaces by category | ![Featured projects](docs/screenshots/featured.jpg) Featured projects |
+| ![Admin sign-in (live demo)](docs/screenshots/admin-login.jpg) Admin sign-in (live demo) |  |
+
+Running the browser test also writes full-page PNG screenshots of every step to `docs/screenshots/` (ignored by git).
 
 ## Limitations
 

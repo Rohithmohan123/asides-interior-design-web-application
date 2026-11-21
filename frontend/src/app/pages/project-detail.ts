@@ -93,7 +93,7 @@ type State = { status: 'loading' } | { status: 'error'; notFound: boolean } | { 
   `,
   styles: [`
     .detail-head { padding-top: 40px; }
-    .back { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--muted); font-size: .9rem; margin-bottom: 20px; }
+    .back { display: flex; width: max-content; align-items: center; gap: 6px; text-decoration: none; color: var(--muted); font-size: .9rem; margin-bottom: 20px; }
     .back:hover { color: var(--ink); }
     .facts { list-style: none; padding: 0; margin: 28px 0; display: flex; gap: 32px; flex-wrap: wrap; }
     .facts li { display: flex; gap: 10px; align-items: flex-start; color: var(--accent); }
