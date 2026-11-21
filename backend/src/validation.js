@@ -6,6 +6,9 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
 
+/** Local files under /images/ or photos on the Unsplash CDN; nothing else is accepted as a project image. */
+export const isAllowedImage = (src) => src.startsWith('/images/') || src.startsWith('https://images.unsplash.com/photo-');
+
 export const PROJECT_TYPES = ['Living room', 'Kitchen', 'Bedroom', 'Bathroom', 'Workspace', 'Commercial', 'Full home', 'Other'];
 export const BUDGET_RANGES = ['Under ₹2 lakh', '₹2–5 lakh', '₹5–10 lakh', 'Above ₹10 lakh', 'Not sure yet'];
 
@@ -58,8 +61,8 @@ export function validateProject(body = {}) {
   if (value.area_sqft !== null && (!Number.isInteger(value.area_sqft) || value.area_sqft <= 0 || value.area_sqft > 100000)) errors.area_sqft = 'Area must be a positive whole number.';
   if (value.year !== null && (!Number.isInteger(value.year) || value.year < 1990 || value.year > 2100)) errors.year = 'Year looks invalid.';
   if (value.summary.length > 300) errors.summary = 'Summary must be 300 characters or fewer.';
-  if (value.cover_image && !value.cover_image.startsWith('/images/')) errors.cover_image = 'Images must be paths under /images/.';
-  if (value.gallery.some((g) => !g.startsWith('/images/'))) errors.gallery = 'Gallery images must be paths under /images/.';
+  if (value.cover_image && !isAllowedImage(value.cover_image)) errors.cover_image = 'Images must be paths under /images/ or Unsplash CDN URLs.';
+  if (value.gallery.some((g) => !isAllowedImage(g))) errors.gallery = 'Gallery images must be paths under /images/ or Unsplash CDN URLs.';
   return { value, errors };
 }
 

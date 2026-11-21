@@ -16,7 +16,7 @@
     "seed": "npm --prefix backend run seed",
     "test": "npm --prefix backend test && npm --prefix frontend test -- --watch=false",
     "e2e": "node e2e/smoke.mjs",
-    "artwork": "node tools/generate-artwork.mjs"
+    "build:demo": "npm --prefix frontend run build:demo"
   },
   "devDependencies": {
     "playwright-core": "^1.57.0"

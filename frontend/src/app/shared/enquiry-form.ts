@@ -12,7 +12,7 @@ import { ApiError } from '../core/models';
     @if (sent()) {
       <div class="alert alert-ok" role="status">
         <strong>Thank you — your enquiry has been received.</strong><br />
-        This is a demo: the enquiry is stored in the local database and appears in the admin area. No email is sent.
+        Your brief is now with the studio team, who will follow up by email to arrange a consultation.
       </div>
       <button type="button" class="btn btn-ghost" style="margin-top:16px" (click)="reset()">Send another enquiry</button>
     } @else {

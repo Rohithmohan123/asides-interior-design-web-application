@@ -66,8 +66,18 @@ async function step(name, fn) {
   }
 }
 
+// Photos (Unsplash CDN) and web fonts are external. Set E2E_OFFLINE=1 to replace them with local stand-ins
+// so the test runs without network access; screenshots then show grey placeholders instead of photos.
+const PLACEHOLDER = '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000"><rect width="100%" height="100%" fill="#dcd7cf"/></svg>';
+async function offlineAssets(context) {
+  if (!process.env.E2E_OFFLINE) return;
+  await context.route(/images\.unsplash\.com/, (r) => r.fulfill({ status: 200, contentType: 'image/svg+xml', body: PLACEHOLDER }));
+  await context.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.fulfill({ status: 200, contentType: 'text/css', body: '' }));
+}
+
 try {
   const ctx = await browser.newContext({ viewport: { width: 1366, height: 900 } });
+  await offlineAssets(ctx);
   const page = await ctx.newPage();
   activePage = page;
   const consoleErrors = [];
@@ -77,10 +87,10 @@ try {
   console.log('Public site');
   await step('home page renders featured projects and categories', async () => {
     await page.goto(BASE + '/');
-    await page.getByRole('heading', { name: 'Selected work' }).waitFor();
+    await page.getByRole('heading', { name: 'Featured projects' }).waitFor();
     await page.locator('app-project-card').first().waitFor();
-    await page.locator('a.cat.card').first().waitFor();
-    assert.equal(await page.locator('a.cat.card').count(), 6);
+    await page.locator('a.space').first().waitFor();
+    assert.equal(await page.locator('a.space').count(), 6);
     await loadAll(page);
     await page.screenshot({ path: `${shots}/01-home.png`, fullPage: true });
   });
@@ -111,7 +121,8 @@ try {
     await page.goto(BASE + '/projects/sage-modular-kitchen');
     await page.getByRole('heading', { level: 1, name: 'Sage Modular Kitchen' }).waitFor();
     await page.getByRole('tab', { name: 'Show image 2' }).click();
-    await page.waitForFunction(() => document.querySelector('img.main')?.getAttribute('src')?.includes('detail-1'));
+    // Second gallery photo of this project (see PROJECT_PHOTOS in backend/src/seed-data.js)
+    await page.waitForFunction(() => document.querySelector('img.main')?.getAttribute('src')?.includes('1628745277862'));
     await page.getByRole('tab', { name: 'Show image 1' }).click();
     assert.equal(await page.locator('h2', { hasText: 'More kitchens' }).count(), 1);
     await loadAll(page);
@@ -140,6 +151,7 @@ try {
 
   await step('mobile navigation opens and closes', async () => {
     const m = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+    await offlineAssets(m);
     const mp = await m.newPage();
     await mp.goto(BASE + '/');
     await mp.locator('app-project-card').first().waitFor();
@@ -184,7 +196,7 @@ try {
     await page.getByLabel('Summary').fill('A sample verandah lounge added through the admin CMS during the end-to-end test.');
     await page.getByLabel('Highlights').fill('Weatherproof seating\nCeiling fan with cane blades');
     await page.getByLabel('Materials').fill('Cane\nTeak');
-    await page.getByLabel('Cover image').selectOption('/images/projects/teak-and-linen-living-room.svg');
+    await page.getByLabel('Cover image').selectOption({ index: 1 });
     await page.locator('img.preview').evaluate((img) => img.complete || new Promise((r) => { img.onload = r; }));
     await page.screenshot({ path: `${shots}/07-admin-project-form.png`, fullPage: true });
     await page.getByRole('button', { name: 'Save project' }).click();

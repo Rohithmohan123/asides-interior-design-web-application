@@ -7,11 +7,11 @@ export const routes: Routes = [
     path: '',
     component: PublicLayout,
     children: [
-      { path: '', title: 'ASIDES · Interior Design Studio (demo)', loadComponent: () => import('./pages/home').then((m) => m.HomePage) },
-      { path: 'projects', title: 'Projects · ASIDES (demo)', loadComponent: () => import('./pages/projects').then((m) => m.ProjectsPage) },
-      { path: 'projects/:slug', title: 'Project · ASIDES (demo)', loadComponent: () => import('./pages/project-detail').then((m) => m.ProjectDetailPage) },
-      { path: 'services', title: 'Services · ASIDES (demo)', loadComponent: () => import('./pages/services').then((m) => m.ServicesPage) },
-      { path: 'contact', title: 'Contact · ASIDES (demo)', loadComponent: () => import('./pages/contact').then((m) => m.ContactPage) }
+      { path: '', title: 'ASIDES · Interior design studio in Kochi', loadComponent: () => import('./pages/home').then((m) => m.HomePage) },
+      { path: 'projects', title: 'Projects · ASIDES', loadComponent: () => import('./pages/projects').then((m) => m.ProjectsPage) },
+      { path: 'projects/:slug', title: 'Project · ASIDES', loadComponent: () => import('./pages/project-detail').then((m) => m.ProjectDetailPage) },
+      { path: 'services', title: 'Services · ASIDES', loadComponent: () => import('./pages/services').then((m) => m.ServicesPage) },
+      { path: 'contact', title: 'Contact · ASIDES', loadComponent: () => import('./pages/contact').then((m) => m.ContactPage) }
     ]
   },
   { path: 'admin/login', title: 'Admin login · ASIDES', loadComponent: () => import('./admin/admin-login').then((m) => m.AdminLoginPage) },

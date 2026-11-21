@@ -7,8 +7,7 @@ import { Icon } from './icon';
   imports: [RouterOutlet, RouterLink, RouterLinkActive, Icon],
   template: `
     <a class="skip" href="#main">Skip to content</a>
-    <div class="demo-bar">Independent reconstruction for portfolio purposes · all projects and content are fictional samples</div>
-    <header class="header">
+    <header class="header" [class.is-open]="open()">
       <div class="wrap header__inner">
         <a routerLink="/" class="brand" (click)="open.set(false)">ASIDES<span>.in</span></a>
         <button class="menu-btn" type="button" (click)="open.set(!open())"
@@ -20,7 +19,7 @@ import { Icon } from './icon';
             <a [routerLink]="item.path" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.path === '/' }"
                (click)="open.set(false)">{{ item.label }}</a>
           }
-          <a routerLink="/contact" class="btn btn-primary btn-sm" (click)="open.set(false)">Start a project</a>
+          <a routerLink="/contact" class="btn btn-primary btn-sm" (click)="open.set(false)">Book a consultation</a>
         </nav>
       </div>
     </header>
@@ -28,54 +27,70 @@ import { Icon } from './icon';
     <main id="main"><router-outlet /></main>
 
     <footer class="footer">
+      <div class="wrap footer__top">
+        <h2>Let’s design a space you love coming home to.</h2>
+        <a routerLink="/contact" class="btn btn-light">Start a project <app-icon name="arrow" [size]="18" /></a>
+      </div>
       <div class="wrap footer__grid">
         <div>
           <div class="brand brand--light">ASIDES<span>.in</span></div>
-          <p class="muted">A demonstration interior design web application: project portfolio, enquiries and a small content management area.</p>
+          <p class="muted">Interior design and execution for homes, cafés and boutiques, based in Kochi, Kerala.</p>
         </div>
         <div>
-          <h3>Explore</h3>
+          <h3>Studio</h3>
           <a routerLink="/projects">Projects</a><a routerLink="/services">Services</a><a routerLink="/contact">Contact</a>
         </div>
         <div>
-          <h3>About this demo</h3>
-          <p class="muted small">Rebuilt from scratch. It is not the original production system and is not affiliated with any live ASIDES.in website. Illustrations are original artwork.</p>
-          <a routerLink="/admin" class="small">Admin area</a>
+          <h3>Spaces</h3>
+          <a routerLink="/projects" [queryParams]="{ category: 'living-rooms' }">Living rooms</a>
+          <a routerLink="/projects" [queryParams]="{ category: 'kitchens' }">Kitchens</a>
+          <a routerLink="/projects" [queryParams]="{ category: 'commercial' }">Commercial</a>
+        </div>
+        <div>
+          <h3>Team</h3>
+          <a routerLink="/admin">Studio login</a>
         </div>
       </div>
-      <div class="wrap footer__base small">© {{ year }} Demo project · MIT licence</div>
+      <div class="wrap footer__base small">
+        <span>© {{ year }} ASIDES.in</span>
+        <span>Portfolio rebuild by Rohith Mohan · projects are fictional samples · photos from Unsplash</span>
+      </div>
     </footer>
   `,
   styles: [`
-    .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 6px; z-index: 50; }
+    .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 10px 16px; z-index: 50; }
     .skip:focus { left: 8px; }
-    .demo-bar { background: var(--ink); color: #efe7dc; font-size: .78rem; text-align: center; padding: 6px 16px; }
-    .header { position: sticky; top: 0; z-index: 20; background: rgba(250, 247, 242, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-    .header__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .brand { font: 700 1.5rem/1 var(--serif); letter-spacing: .08em; text-decoration: none; }
-    .brand span { color: var(--accent); letter-spacing: 0; font-size: .8em; }
-    .brand--light { color: #fff; margin-bottom: 12px; }
-    .nav { display: flex; align-items: center; gap: 28px; }
-    .nav a:not(.btn) { text-decoration: none; font-weight: 500; color: var(--ink-2); padding: 6px 0; border-bottom: 2px solid transparent; }
-    .nav a:not(.btn):hover, .nav a.is-active { color: var(--ink); border-color: var(--accent); }
-    .menu-btn { display: none; background: none; border: 0; padding: 8px; cursor: pointer; color: var(--ink); }
-    @media (max-width: 820px) {
+    .header { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .94); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid var(--line); }
+    .header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+    .brand { font: 800 1.35rem/1 var(--sans); letter-spacing: .22em; text-decoration: none; }
+    .brand span { color: var(--accent); letter-spacing: .02em; font-weight: 600; font-size: .78em; }
+    .brand--light { color: #fff; margin-bottom: 16px; }
+    .nav { display: flex; align-items: center; gap: 36px; }
+    .nav a:not(.btn) { position: relative; text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--ink-2); padding: 8px 0; }
+    .nav a:not(.btn)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .nav a:not(.btn):hover, .nav a.is-active { color: var(--ink); }
+    .nav a:not(.btn):hover::after, .nav a.is-active::after { transform: scaleX(1); }
+    .menu-btn { display: none; background: none; border: 0; padding: 10px; cursor: pointer; color: var(--ink); }
+    @media (max-width: 860px) {
       .menu-btn { display: inline-flex; }
-      .nav { position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
-             background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 24px 20px; display: none; }
+      .nav { position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+             background: #fff; border-bottom: 1px solid var(--line); padding: 8px clamp(16px, 4vw, 40px) 24px; display: none; box-shadow: var(--shadow); }
       .nav.is-open { display: flex; }
-      .nav a:not(.btn) { padding: 14px 0; border-bottom: 1px solid var(--line); }
-      .nav .btn { margin-top: 16px; }
+      .nav a:not(.btn) { padding: 16px 0; border-bottom: 1px solid var(--line); }
+      .nav a:not(.btn)::after { display: none; }
+      .nav .btn { margin-top: 18px; }
     }
-    .footer { background: #231d19; color: #efe7dc; margin-top: 40px; }
-    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 40px; padding: 56px 24px 32px; }
-    .footer h3 { font: 600 .8rem/1 var(--sans); text-transform: uppercase; letter-spacing: .12em; color: #b9ab9c; margin-bottom: 16px; }
-    .footer a { display: block; color: #efe7dc; text-decoration: none; margin-bottom: 8px; }
-    .footer a:hover { color: #fff; text-decoration: underline; }
-    .footer .muted { color: #b9ab9c; }
-    .footer__base { border-top: 1px solid #3a312b; padding: 18px 24px; color: #9c8f82; }
+    .footer { background: var(--ink); color: #e9e5df; }
+    .footer__top { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; padding-top: 72px; padding-bottom: 56px; border-bottom: 1px solid #34322d; }
+    .footer__top h2 { color: #fff; max-width: 20ch; margin: 0; font-size: clamp(1.7rem, 3.2vw, 2.6rem); }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-top: 48px; padding-bottom: 40px; }
+    .footer h3 { font: 700 .85rem/1 var(--sans); color: #fff; margin-bottom: 18px; letter-spacing: 0; }
+    .footer a:not(.btn) { display: block; color: #b8b2a9; text-decoration: none; margin-bottom: 10px; }
+    .footer a:not(.btn):hover { color: #fff; }
+    .footer .muted { color: #b8b2a9; max-width: 36ch; }
+    .footer__base { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid #34322d; padding-top: 20px; padding-bottom: 24px; color: #8f897f; }
     .small { font-size: .85rem; }
-    @media (max-width: 720px) { .footer__grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__grid > div:first-child { grid-column: 1 / -1; } }
   `]
 })
 export class PublicLayout {

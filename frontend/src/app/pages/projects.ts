@@ -16,7 +16,7 @@ import { Icon } from '../shared/icon';
       <div class="wrap">
         <p class="eyebrow">Portfolio</p>
         <h1>Projects</h1>
-        <p class="lead">Sample interiors grouped by space. Filter by category or search by name, location or style.</p>
+        <p class="lead">Residential and commercial interiors, grouped by space. Filter by category or search by name, location or style.</p>
       </div>
     </section>
 

@@ -118,7 +118,7 @@ describe('admin API', () => {
     const payload = {
       slug: 'test-studio', title: 'Test Studio', category_id: cats[0].id, location: 'Kochi',
       area_sqft: 100, year: 2025, summary: 'A test.', highlights: ['One'], materials: ['Oak'],
-      cover_image: '/images/projects/sage-modular-kitchen.svg', featured: true
+      cover_image: 'https://images.unsplash.com/photo-1722605090433-41d1183a792d?auto=format&fit=crop&w=1600&q=80', featured: true
     };
     const created = await call('POST', '/admin/projects', payload, true);
     assert.equal(created.status, 201);

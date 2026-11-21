@@ -6,6 +6,7 @@ import { checkCredentials, issueToken, requireAdmin, adminConfigured } from './a
 import {
   validateEnquiry, validateProject, validateCategory, hasErrors, PROJECT_TYPES, BUDGET_RANGES
 } from './validation.js';
+import { IMAGE_LIBRARY } from './seed-data.js';
 
 /**
  * Build the Express application.
@@ -109,9 +110,11 @@ export function createApp(db, { staticDir, imagesDir } = {}) {
   });
 
   admin.get('/images', (req, res) => {
-    if (!imagesDir || !existsSync(imagesDir)) return res.json([]);
-    const files = readdirSync(imagesDir).filter((f) => /\.(svg|png|jpe?g|webp)$/i.test(f)).sort();
-    res.json(files.map((f) => `/images/projects/${f}`));
+    // Photo library (Unsplash CDN) followed by any image files added under frontend/public/images/projects
+    const local = imagesDir && existsSync(imagesDir)
+      ? readdirSync(imagesDir).filter((f) => /\.(svg|png|jpe?g|webp)$/i.test(f)).sort().map((f) => `/images/projects/${f}`)
+      : [];
+    res.json([...IMAGE_LIBRARY, ...local]);
   });
 
   // Projects (including unpublished)

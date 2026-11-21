@@ -10,7 +10,7 @@ import { Icon } from '../shared/icon';
       <div class="wrap">
         <p class="eyebrow">Services</p>
         <h1>From first sketch to handover</h1>
-        <p class="lead">Example service packages for the demo studio. Descriptions are illustrative and are not a price list.</p>
+        <p class="lead">Whether it is one room or a whole home, every engagement follows the same careful process: plan, design, then build.</p>
       </div>
     </section>
     <section class="section--tight">

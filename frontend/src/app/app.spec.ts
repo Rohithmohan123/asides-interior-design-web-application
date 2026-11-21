@@ -54,7 +54,7 @@ describe('ProjectCard', () => {
     expect(el.textContent).toContain('Kitchens');
     expect(el.textContent).toContain('150 sq ft');
     expect(el.querySelector('a')?.getAttribute('href')).toBe('/projects/sample-room');
-    expect(el.querySelector('img')?.getAttribute('src')).toBe('/images/placeholder.svg');
+    expect(el.querySelector('img')?.getAttribute('src')).toBe('images/placeholder.svg');
   });
 });
 

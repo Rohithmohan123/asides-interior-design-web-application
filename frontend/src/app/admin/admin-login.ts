@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../core/auth';
+import { DEMO_LOGIN_HINT } from '../core/demo-mode';
 
 @Component({
   selector: 'app-admin-login',
@@ -12,7 +13,8 @@ import { AuthService } from '../core/auth';
       <form class="panel form" [formGroup]="form" (ngSubmit)="submit()">
         <a routerLink="/" class="brand">ASIDES<span>.in</span></a>
         <h1>Admin sign in</h1>
-        <p class="muted">Content management for projects, categories and enquiries. Credentials are set in <code>backend/.env</code>.</p>
+        <p class="muted">Content management for projects, categories and enquiries.@if (!demoHint) { Credentials are set in <code>backend/.env</code>.}</p>
+        @if (demoHint) { <div class="alert alert-info">{{ demoHint }}</div> }
         <div class="field">
           <label for="username">Username</label>
           <input id="username" class="input" formControlName="username" autocomplete="username" />
@@ -36,6 +38,7 @@ import { AuthService } from '../core/auth';
   `]
 })
 export class AdminLoginPage {
+  readonly demoHint = inject(DEMO_LOGIN_HINT, { optional: true });
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   readonly busy = signal(false);

@@ -75,7 +75,7 @@ export const slugify = (text: string) =>
             <label for="cover">Cover image</label>
             <select id="cover" class="input" formControlName="cover_image">
               <option value="">None</option>
-              @for (img of images() ?? []; track img) { <option [value]="img">{{ img.split('/').pop() }}</option> }
+              @for (img of images() ?? []; track img; let i = $index) { <option [value]="img">{{ imageLabel(img, i) }}</option> }
             </select>
             @if (err('cover_image')) { <span class="error">{{ err('cover_image') }}</span> }
           </div>
@@ -83,7 +83,7 @@ export const slugify = (text: string) =>
           <div class="field">
             <label for="gallery">Gallery</label>
             <textarea id="gallery" class="input" formControlName="gallery" rows="4"></textarea>
-            <span class="hint">One image path per line, e.g. /images/projects/name.svg. Add files to frontend/public/images/projects.</span>
+            <span class="hint">One image per line: an Unsplash CDN URL (https://images.unsplash.com/photo-…) or a path such as /images/projects/name.jpg for files added to frontend/public/images/projects.</span>
             @if (err('gallery')) { <span class="error">{{ err('gallery') }}</span> }
           </div>
         </div>
@@ -112,6 +112,10 @@ export class AdminProjectFormPage {
 
   readonly categories = toSignal(this.api.categories());
   readonly images = toSignal(this.api.adminImages());
+  /** Short, readable option label: "Library photo 3" for CDN photos, the file name for local images. */
+  imageLabel(src: string, i: number) {
+    return src.startsWith('https://images.unsplash.com/') ? `Library photo ${i + 1} (${src.split('photo-')[1]?.split('?')[0].slice(0, 13)})` : src.split('/').pop();
+  }
   readonly saving = signal(false);
   readonly error = signal('');
   readonly fieldErrors = signal<Record<string, string>>({});

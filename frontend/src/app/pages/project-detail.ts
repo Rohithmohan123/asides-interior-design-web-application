@@ -8,6 +8,7 @@ import { ProjectDetail } from '../core/models';
 import { ProjectCard } from '../shared/project-card';
 import { EnquiryForm } from '../shared/enquiry-form';
 import { Icon } from '../shared/icon';
+import { sized } from '../core/photos';
 
 type State = { status: 'loading' } | { status: 'error'; notFound: boolean } | { status: 'ok'; project: ProjectDetail };
 
@@ -43,13 +44,13 @@ type State = { status: 'loading' } | { status: 'error'; notFound: boolean } | { 
           </section>
 
           <section class="wrap gallery">
-            <img class="main" [src]="activeImage()" [alt]="p.title + ' — image ' + (activeIndex() + 1)" width="1200" height="800" />
+            <img class="main" [src]="activeImage()" [alt]="p.title + ', photo ' + (activeIndex() + 1)" width="1600" height="1000" />
             @if (p.gallery.length > 1) {
               <div class="thumbs" role="tablist" aria-label="Gallery">
                 @for (g of p.gallery; track g; let i = $index) {
                   <button type="button" role="tab" [attr.aria-selected]="i === activeIndex()" [class.is-active]="i === activeIndex()"
                           (click)="activeIndex.set(i)" [attr.aria-label]="'Show image ' + (i + 1)">
-                    <img [src]="g" alt="" width="1200" height="800" loading="lazy" />
+                    <img [src]="sized(g, 400)" alt="" width="400" height="267" loading="lazy" />
                   </button>
                 }
               </div>
@@ -98,10 +99,11 @@ type State = { status: 'loading' } | { status: 'error'; notFound: boolean } | { 
     .facts li { display: flex; gap: 10px; align-items: flex-start; color: var(--accent); }
     .facts span { display: grid; color: var(--ink); font-weight: 500; }
     .facts small { color: var(--muted); font-weight: 400; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
-    .gallery .main { width: 100%; border-radius: 20px; aspect-ratio: 3/2; object-fit: cover; background: var(--surface-2); }
-    .thumbs { display: flex; gap: 12px; margin-top: 12px; }
-    .thumbs button { padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; width: 120px; cursor: pointer; background: none; opacity: .7; }
-    .thumbs button.is-active, .thumbs button:hover { border-color: var(--accent); opacity: 1; }
+    .gallery .main { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface-2); }
+    .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 160px)); gap: 12px; margin-top: 12px; }
+    .thumbs button { padding: 0; border: 2px solid transparent; overflow: hidden; aspect-ratio: 3 / 2; cursor: pointer; background: var(--surface-2); opacity: .65; transition: opacity .2s, border-color .2s; }
+    .thumbs button img { width: 100%; height: 100%; object-fit: cover; }
+    .thumbs button.is-active, .thumbs button:hover { border-color: var(--ink); opacity: 1; }
     .body { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start; }
     @media (max-width: 860px) { .body { grid-template-columns: 1fr; } }
     .checks { list-style: none; padding: 0; display: grid; gap: 10px; }
@@ -113,6 +115,7 @@ type State = { status: 'loading' } | { status: 'error'; notFound: boolean } | { 
   `]
 })
 export class ProjectDetailPage {
+  readonly sized = sized;
   private readonly api = inject(ApiService);
   private readonly title = inject(Title);
 
@@ -125,7 +128,7 @@ export class ProjectDetailPage {
       tap(() => this.activeIndex.set(0)),
       switchMap((slug) => this.api.project(slug).pipe(
         map((project): State => ({ status: 'ok', project })),
-        tap((s) => { if (s.status === 'ok') this.title.setTitle(`${s.project.title} · ASIDES (demo)`); }),
+        tap((s) => { if (s.status === 'ok') this.title.setTitle(`${s.project.title} · ASIDES`); }),
         catchError((err) => of<State>({ status: 'error', notFound: err?.status === 404 })),
         startWith<State>({ status: 'loading' })
       ))
@@ -137,6 +140,7 @@ export class ProjectDetailPage {
   readonly notFound = computed(() => { const s = this.state(); return s.status === 'error' && s.notFound; });
   readonly activeImage = computed(() => {
     const p = this.project();
-    return p ? (p.gallery[this.activeIndex()] || p.cover_image || '/images/placeholder.svg') : '';
+    const src = p ? (p.gallery[this.activeIndex()] || p.cover_image) : '';
+    return src ? sized(src, 1800) : (p ? 'images/placeholder.svg' : '');
   });
 }

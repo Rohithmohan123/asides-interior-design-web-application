@@ -19,7 +19,7 @@ import { Icon } from '../shared/icon';
         <tbody>
           @for (p of projects(); track p.id) {
             <tr>
-              <td><img [src]="p.cover_image || '/images/placeholder.svg'" alt="" width="72" height="48" class="thumb" /></td>
+              <td><img [src]="p.cover_image || 'images/placeholder.svg'" alt="" width="72" height="48" class="thumb" /></td>
               <td><strong>{{ p.title }}</strong><br /><small class="muted">/{{ p.slug }}</small></td>
               <td>{{ p.category.name }}</td>
               <td>{{ p.year ?? '—' }}</td>
