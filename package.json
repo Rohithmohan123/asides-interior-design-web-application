@@ -1,0 +1,25 @@
+{
+  "name": "asides-interior-design-web-application",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent reconstruction of the ASIDES.in interior design single-page application: Angular frontend, Express + SQLite API and admin CMS.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "dev:api": "npm --prefix backend run dev",
+    "dev:web": "npm --prefix frontend start",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start",
+    "seed": "npm --prefix backend run seed",
+    "test": "npm --prefix backend test && npm --prefix frontend test -- --watch=false",
+    "e2e": "node e2e/smoke.mjs",
+    "artwork": "node tools/generate-artwork.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.57.0"
+  },
+  "license": "MIT"
+}

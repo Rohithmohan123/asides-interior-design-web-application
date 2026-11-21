@@ -1,0 +1,20 @@
+{
+  "name": "asides-backend",
+  "version": "1.0.0",
+  "description": "REST API and content management backend for the ASIDES.in interior design web application (independent reconstruction)",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --no-warnings=ExperimentalWarning --env-file-if-exists=.env src/server.js",
+    "dev": "node --no-warnings=ExperimentalWarning --env-file-if-exists=.env --watch src/server.js",
+    "seed": "node --no-warnings=ExperimentalWarning --env-file-if-exists=.env src/seed.js --reset",
+    "test": "node --no-warnings=ExperimentalWarning --test test/*.test.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "license": "MIT"
+}

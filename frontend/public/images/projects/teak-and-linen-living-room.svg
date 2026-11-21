@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t"><title id="t">Teak & Linen Living Room (illustration)</title>
+  <rect width="1200" height="800" fill="#EFE6DA"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#4A3426" opacity=".08"/>
+  <polygon points="0,560 1200,560 1200,800 0,800" fill="#B98A5E"/>
+  <g opacity=".18" stroke="#4A3426" stroke-width="2">
+    <line x1="0" y1="560" x2="-200" y2="800"/><line x1="150" y1="560" x2="-10" y2="800"/><line x1="300" y1="560" x2="180" y2="800"/><line x1="450" y1="560" x2="370" y2="800"/><line x1="600" y1="560" x2="560" y2="800"/><line x1="750" y1="560" x2="750" y2="800"/><line x1="900" y1="560" x2="940" y2="800"/><line x1="1050" y1="560" x2="1130" y2="800"/><line x1="1200" y1="560" x2="1320" y2="800"/>
+  </g>
+  <rect x="0" y="552" width="1200" height="10" fill="#4A3426" opacity=".25"/>
+  <polygon points="772,562 1068,562 1200,800 700,800" fill="#FFF7DE" opacity=".22"/>
+  <g>
+    <rect x="760" y="110" width="320" height="300" rx="6" fill="#FFFFFF" opacity=".9"/>
+    <rect x="772" y="122" width="296" height="276" fill="#CFE4EC"/>
+    <circle cx="1000" cy="190" r="34" fill="#FFF3C9"/>
+    <path d="M772 330 Q850 280 920 320 T1068 300 V398 H772Z" fill="#9DBE8E" opacity=".8"/>
+    <line x1="920" y1="122" x2="920" y2="398" stroke="#FFFFFF" stroke-width="10"/>
+    
+  </g><g><rect x="180" y="170" width="260" height="180" fill="#4A3426"/>
+    <rect x="190" y="180" width="240" height="160" fill="#E3D3BF"/>
+    <circle cx="278.8" cy="251" r="36" fill="#8C5A3C" opacity=".85"/>
+    <rect x="310" y="224" width="78" height="81" fill="#B98A5E" opacity=".8"/></g>
+    <ellipse cx="520" cy="700" rx="420" ry="60" fill="#E3D3BF"/>
+    <rect x="200" y="440" width="560" height="140" rx="30" fill="#8C5A3C"/>
+    <rect x="230" y="380" width="500" height="110" rx="26" fill="#8C5A3C" opacity=".9"/>
+    <rect x="250" y="400" width="140" height="80" rx="18" fill="#E3D3BF"/>
+    <rect x="570" y="400" width="140" height="80" rx="18" fill="#E3D3BF"/>
+    <rect x="220" y="580" width="16" height="50" fill="#4A3426"/><rect x="724" y="580" width="16" height="50" fill="#4A3426"/>
+    <rect x="380" y="620" width="260" height="22" rx="8" fill="#4A3426"/>
+    <rect x="400" y="642" width="12" height="50" fill="#4A3426"/><rect x="608" y="642" width="12" height="50" fill="#4A3426"/>
+    <circle cx="470" cy="606" r="16" fill="#FFFFFF" opacity=".85"/>
+    <g transform="translate(100 560) scale(1)">
+    <path d="M0 0 C-40 -60 -60 -120 -20 -170 C-10 -110 0 -60 0 0Z" fill="#5F8A55"/>
+    <path d="M0 0 C40 -70 70 -110 40 -180 C20 -120 8 -70 0 0Z" fill="#729E63"/>
+    <path d="M0 0 C-10 -80 10 -150 0 -210 C25 -150 15 -80 0 0Z" fill="#4E7A47"/>
+    <path d="M-38 0 H38 L28 70 H-28Z" fill="#4A3426"/>
+  </g><g><line x1="870" y1="300" x2="870" y2="600" stroke="#4A3426" stroke-width="6"/>
+    <path d="M820 300 L920 300 L900 230 L840 230Z" fill="#E3D3BF" stroke="#4A3426" stroke-width="3"/>
+    <ellipse cx="870" cy="600" rx="40" ry="8" fill="#4A3426"/>
+    <ellipse cx="870" cy="340" rx="120" ry="90" fill="#FFF1C1" opacity=".18"/></g><rect width="1200" height="800" fill="url(#v)" opacity="0"/></svg>
